@@ -57,7 +57,11 @@ class Settings:
     )
 
     # Optional LLM refinement for insight wording (rules are the default).
-    openai_api_key: str = field(default_factory=lambda: _env("OPENAI_API_KEY"))
+    # Via OpenRouter — a mid-tier model is plenty for polishing prose.
+    openrouter_api_key: str = field(default_factory=lambda: _env("OPENROUTER_API_KEY"))
+    openrouter_model: str = field(
+        default_factory=lambda: _env("OPENROUTER_MODEL", "openai/gpt-4o-mini")
+    )
 
     @property
     def supabase_configured(self) -> bool:

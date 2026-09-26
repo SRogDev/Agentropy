@@ -7,7 +7,8 @@ Pipeline:
     load_traces -> compute_stats -> forecast -> detect_issues -> propose -> persist
 
 - Rules are the default and always run (no LLM needed).
-- If OPENAI_API_KEY is set, `propose` optionally asks an LLM to tighten the
+- If OPENROUTER_API_KEY is set, `propose` optionally asks an LLM (via
+  OpenRouter, mid-tier model from OPENROUTER_MODEL) to tighten the
   wording of each insight. The facts (numbers, thresholds) always come from
   the rules — the LLM only polishes prose, and failures fall back to rules.
 
@@ -398,7 +399,7 @@ _SUGGESTED_ACTIONS: dict[str, str] = {
 def _maybe_refine_with_llm(insights: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Optionally polish wording with an LLM. Facts stay rule-generated;
     any failure silently falls back to the rule text."""
-    if not settings.openai_api_key or not insights:
+    if not settings.openrouter_api_key or not insights:
         return insights
     try:
         import httpx
@@ -408,10 +409,14 @@ def _maybe_refine_with_llm(insights: list[dict[str, Any]]) -> list[dict[str, Any
             for i in insights
         )
         resp = httpx.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={"Authorization": f"Bearer {settings.openai_api_key}"},
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {settings.openrouter_api_key}",
+                "HTTP-Referer": "https://agentropy.dev",
+                "X-Title": "Agentropy Insight Engine",
+            },
             json={
-                "model": "gpt-4o-mini",
+                "model": settings.openrouter_model,
                 "messages": [
                     {
                         "role": "system",

@@ -169,7 +169,8 @@ EOF
 | `POLAR_PRO_PRODUCT_ID` | $49/mo product | — |
 | `POLAR_SERVER` | Polar API base | `https://api.polar.sh` |
 | `POLAR_SUCCESS_URL` | Post-checkout redirect | `http://localhost:3000/dashboard` |
-| `OPENAI_API_KEY` | Optional LLM polish of insight wording (rules are the default) | — |
+| `OPENROUTER_API_KEY` | Optional LLM polish of insight wording via OpenRouter (rules are the default) | — |
+| `OPENROUTER_MODEL` | Mid-tier model for the polish step | `openai/gpt-4o-mini` |
 | `NEXT_PUBLIC_AGENTROPY_API_URL` | Web → API base URL | `http://localhost:8000` |
 | `NEXT_PUBLIC_AGENTROPY_API_KEY` | Pre-fill dashboard key | — (or enter in the dashboard; stored in localStorage) |
 
@@ -216,7 +217,7 @@ EOF
    repeated identical tool failures, input-token bloat.
 5. **propose** — turns issues + forecasts into insights
    (`prediction` | `warning` | `proposal`) with concrete suggested actions.
-   If `OPENAI_API_KEY` is set, an LLM may polish the wording — facts always
+   If `OPENROUTER_API_KEY` is set, an LLM (via OpenRouter) may polish the wording — facts always
    come from the rules; failures fall back silently to rule text.
 6. **persist** — saves insights to the `insights` table.
 
