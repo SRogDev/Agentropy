@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentropy"
+version = "0.1.0"
+description = "Open-source capture SDK for the Agent Observability platform (OTel-based)"
+readme = "README.md"
+requires-python = ">=3.9"
+# TODO: add a LICENSE file — license choice (MIT intended) is still undecided.
+license = { text = "MIT" }
+dependencies = [
+    "opentelemetry-sdk>=1.28",
+    "opentelemetry-exporter-otlp-proto-http>=1.28",
+]
+
+[project.urls]
+# TODO: point at the real repo once the GitHub repo name is decided.
+Homepage = "https://github.com/SRogDev/agent-observability"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agentropy*"]

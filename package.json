@@ -1,0 +1,1 @@
+{"description":"Monorepo for the Agent Observability platform (open-core skeleton)","devDependencies":{"turbo":"^2.5.4"},"name":"agent-observability","packageManager":"pnpm@12.6.0","private":true,"scripts":{"build":"turbo run build","dev":"turbo run dev","lint":"turbo run lint"},"version":"0.1.0"}
