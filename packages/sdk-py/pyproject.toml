@@ -15,9 +15,13 @@ dependencies = [
     "opentelemetry-exporter-otlp-proto-http>=1.28",
 ]
 
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
 [project.urls]
-# TODO: point at the real repo once the GitHub repo name is decided.
-Homepage = "https://github.com/SRogDev/agent-observability"
+Homepage = "https://github.com/SRogDev/Agentropy"
 
 [tool.setuptools.packages.find]
 where = ["."]
